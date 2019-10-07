@@ -68,8 +68,9 @@ do {
     var rightImage = Math.floor(Math.random() * allProducts.length);
   } while (rightImage === leftImage || rightImage ===centerImage);
   // render images
-  console.log(rightImage);
-  console.log(centerImage);
+  console.log(allProducts[rightImage].name);
+  console.log(allProducts[rightImage].pathToImg);
+  console.log(allProducts[centerImage]);
   console.log(leftImage);
 }
 
