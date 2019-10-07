@@ -38,6 +38,7 @@ var ProductImage = function(name, pathToImg) {
 
 
 
+
 new ProductImage('bag', './img/bag.jpg');
 new ProductImage('boots', './img/boots.jpg');
 new ProductImage('chair', './img/chair.jpg');   
@@ -69,12 +70,23 @@ do {
   } while (rightImage === leftImage || rightImage ===centerImage);
   // render images
   console.log(allProducts[rightImage].name);
-  console.log(allProducts[rightImage].pathToImg);
+  console.log(allProducts[rightImage]['pathToImg']);
   console.log(allProducts[centerImage]);
   console.log(leftImage);
+  leftImgTag = document.getElementById(leftImage);
+  centerImgTag = document.getElementById(centerImage);
+  rightImgTag = document.getElementById(rightImage);
+  console.log(centerImgTag);
 }
 
 
-
+var renderNewImages = function(leftImgTag, centerImgTag, rightImgTag){
+  console.log(leftImgTag);
+  leftImgTag.src= allProducts[leftImage]['pathToImg'];
+ 
+  centerImgTag.src = allProducts[centerImage]['pathToImg'];
+  rightImgTag.src = allProducts[rightImage]['pathToImg'];
+};
+renderNewImages();
 
 
