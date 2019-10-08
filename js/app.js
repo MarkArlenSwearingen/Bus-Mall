@@ -2,6 +2,7 @@
 
 // Global Variables
 var totalClicks = 0;
+var numOfSelections = 25;
 var numImgDisplay = 3;
 var allProducts = [];
 var currentImagesDisplayed = [];
@@ -93,7 +94,7 @@ var handleClicks = function() {
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
-  if (totalClicks === 25){
+  if (totalClicks === numOfSelections){
     // console.log(imageDivTag);
     imageDivTag.removeEventListener('click', handleClicks);
   }
@@ -101,5 +102,3 @@ var handleClicks = function() {
 };
 
 imageDivTag.addEventListener('click', handleClicks);
-
-
