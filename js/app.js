@@ -73,7 +73,7 @@ var randomizer = function(){
 
 var handleClicks = function() {
   randomizer();
-  if (totalClicks < 25){
+  if (totalClicks < numOfSelections){
     var imageClicked = event.target;
     var id = imageClicked.id;
     if( id === 'leftimage'){
@@ -88,14 +88,11 @@ var handleClicks = function() {
     }
   }
 
-  // randomizer();
-  
   console.log(totalClicks);
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
   if (totalClicks === numOfSelections){
-    // console.log(imageDivTag);
     imageDivTag.removeEventListener('click', handleClicks);
   }
   totalClicks ++;
