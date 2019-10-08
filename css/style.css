@@ -3,11 +3,19 @@
 }
 
 
-
 #left-image {
   background-color: green;
 }
 
 h1 {
   background-color: yellow;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+}
+
+#images {
+  display: inline;
 }

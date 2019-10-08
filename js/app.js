@@ -13,6 +13,7 @@ var centerImgTag = document.getElementById(centerimage);
 var rightImgTag = document.getElementById(rightimage);
 
 
+
 // Constructor Function
 var ProductImage = function(name, pathToImg) {
   this. name = name;
@@ -22,6 +23,9 @@ var ProductImage = function(name, pathToImg) {
 
   allProducts.push(this);
 };
+
+
+
 
 // // Helper Functions
 // var pickImgToDisplay = function(){
@@ -69,24 +73,35 @@ do {
     var rightImage = Math.floor(Math.random() * allProducts.length);
   } while (rightImage === leftImage || rightImage ===centerImage);
   // render images
-  console.log(allProducts[rightImage].name);
-  console.log(allProducts[rightImage]['pathToImg']);
-  console.log(allProducts[centerImage]);
-  console.log(leftImage);
+  // console.log(allProducts[rightImage].name);
+  // console.log(allProducts[rightImage]['pathToImg']);
+  // console.log(allProducts[centerImage]);
+  // console.log(leftImage);
   leftImgTag = document.getElementById(leftImage);
   centerImgTag = document.getElementById(centerImage);
   rightImgTag = document.getElementById(rightImage);
-  console.log(centerImgTag);
+  // console.log(centerImgTag);
 }
 
 
 var renderNewImages = function(leftImgTag, centerImgTag, rightImgTag){
   console.log(leftImgTag);
-  leftImgTag.src= allProducts[leftImage]['pathToImg'];
+  // leftImgTag.src= allProducts[leftImage]['pathToImg'];
  
-  centerImgTag.src = allProducts[centerImage]['pathToImg'];
-  rightImgTag.src = allProducts[rightImage]['pathToImg'];
+  // centerImgTag.src = allProducts[centerImage]['pathToImg'];
+  // rightImgTag.src = allProducts[rightImage]['pathToImg'];
 };
 renderNewImages();
 
 
+//Event Handler
+
+var imageDivTag = document.getElementById('images');
+console.log(imageDivTag);
+
+var handleClicks = function() {
+console.log('Proof of event handler');
+}
+
+
+imageDivTag.addEventListener('click', handleClicks);
