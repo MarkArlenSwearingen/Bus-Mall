@@ -46,14 +46,25 @@ new ProductImage('pet-sweep', './img/pet-sweep.jpg');
 new ProductImage('tauntaun', './img/tauntaun.jpg');
 new ProductImage('water-can', './img/water-can.jpg');
 
+//Render function
 var renderNewImages = function(leftImageIndex, centerImageIndex, rightImageIndex){
   leftImgTag.src = allProducts[leftImageIndex].pathToImg;
   centerImgTag.src = allProducts[centerImageIndex].pathToImg;
   rightImgTag.src = allProducts[rightImageIndex].pathToImg;
 };
 
-//Event Handler
-var imageDivTag = document.getElementById('images');
+var displayResults = function() {
+  var resultId = document.getElementById('results');
+  var ul = document.createElement('ul');
+  resultId.appendChild(ul);
+  for(var i = 0; i < allProducts.length; i++){
+    var li = document.createElement('li');
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes`;
+    ul.appendChild(li);
+  }
+};
+
+
 
 //Randomizer
 var randomizer = function(){
@@ -71,6 +82,7 @@ var randomizer = function(){
   renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
 };
 
+//Event Handler
 var handleClicks = function() {
   randomizer();
   if (totalClicks < numOfSelections){
@@ -87,15 +99,19 @@ var handleClicks = function() {
       allProducts[rightImageIndex].clicks ++;
     }
   }
-
   console.log(totalClicks);
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
   if (totalClicks === numOfSelections){
     imageDivTag.removeEventListener('click', handleClicks);
+    displayResults();
   }
   totalClicks ++;
 };
 
+var imageDivTag = document.getElementById('images');
+
 imageDivTag.addEventListener('click', handleClicks);
+
+
