@@ -88,11 +88,16 @@ var handleClicks = function() {
   }
 
   // randomizer();
-  totalClicks ++;
+  
   console.log(totalClicks);
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
+  if (totalClicks === 25){
+    // console.log(imageDivTag);
+    imageDivTag.removeEventListener('click', handleClicks);
+  }
+  totalClicks ++;
 };
 
 imageDivTag.addEventListener('click', handleClicks);
