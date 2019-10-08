@@ -1,8 +1,5 @@
 'use strict';
 
-// Problem Statement
-// Create constructor function
-
 // Global Variables
 var totalClicks = 0;
 var numImgDisplay = 3;
@@ -14,11 +11,9 @@ var rightImgTag = document.getElementById('rightimage');
 var leftImgPath = '';
 var centerImgPath = '';
 var rightImgPath = '';
-var centerImageIndex = ''
-
-
-
-console.log(centerImgTag);
+var leftImageIndex = '';
+var centerImageIndex = '';
+var rightImageIndex = '';
 
 // Constructor Function
 var ProductImage = function(name, pathToImg) {
@@ -49,21 +44,18 @@ new ProductImage('bubblegum', './img/bubblegum.jpg');
 new ProductImage('pet-sweep', './img/pet-sweep.jpg');
 new ProductImage('tauntaun', './img/tauntaun.jpg');
 new ProductImage('water-can', './img/water-can.jpg');
-console.log(allProducts);
 
-
-var renderNewImages = function(leftImg, centerImg, rightImg){
-  console.log('render function');
+var renderNewImages = function(leftImageIndex, centerImageIndex, rightImageIndex){ 
+  leftImgTag.src = allProducts[leftImageIndex].pathToImg; 
+  centerImgTag.src = allProducts[centerImageIndex].pathToImg; 
+  rightImgTag.src = allProducts[rightImageIndex].pathToImg; 
 };
 
 //Event Handler
 var imageDivTag = document.getElementById('images');
-console.log(imageDivTag);
 
 var handleClicks = function() {
-  
   var leftImageIndex = Math.floor(Math.random() * allProducts.length);
-
   do {
     var centerImageIndex = Math.floor(Math.random() * allProducts.length);
   } while (centerImageIndex === leftImageIndex);{
@@ -73,13 +65,9 @@ var handleClicks = function() {
       var leftImgPath = allProducts[leftImageIndex].pathToImg; 
       var centerImgPath = allProducts[centerImageIndex].pathToImg;
       var rightImgPath = allProducts[rightImageIndex].pathToImg;
-      //render new images
-      leftImgTag.src=leftImgPath
-      centerImgTag.src=centerImgPath
-      rightImgTag.src=rightImgPath
     }
-    renderNewImages();
-  }
+    renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
+}
 
 imageDivTag.addEventListener('click', handleClicks);
 
