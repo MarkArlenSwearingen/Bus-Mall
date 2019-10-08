@@ -46,7 +46,6 @@ new ProductImage('tauntaun', './img/tauntaun.jpg');
 new ProductImage('water-can', './img/water-can.jpg');
 
 var renderNewImages = function(leftImageIndex, centerImageIndex, rightImageIndex){
-  // console.log('hello');
   leftImgTag.src = allProducts[leftImageIndex].pathToImg;
   centerImgTag.src = allProducts[centerImageIndex].pathToImg;
   rightImgTag.src = allProducts[rightImageIndex].pathToImg;
@@ -68,14 +67,32 @@ var randomizer = function(){
     centerImgPath = allProducts[centerImageIndex].pathToImg;
     rightImgPath = allProducts[rightImageIndex].pathToImg;
   }
+  renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
 };
 
 var handleClicks = function() {
   randomizer();
+  if (totalClicks < 25){
+    var imageClicked = event.target;
+    var id = imageClicked.id;
+    if( id === 'leftimage'){
+      // console.log('left image ' + leftImageIndex);
+      allProducts[leftImageIndex].clicks ++;
+    } else if( id === 'centerimage'){
+      // console.log('center image ' + centerImageIndex);
+      allProducts[centerImageIndex].clicks ++;
+    } else if( id === 'rightimage'){
+      // console.log('right image ' + rightImageIndex);
+      allProducts[rightImageIndex].clicks ++;
+    }
+  }
+
+  // randomizer();
   totalClicks ++;
   console.log(totalClicks);
   allProducts[leftImageIndex].displayed ++;
-  renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
+  allProducts[centerImageIndex].displayed ++;
+  allProducts[rightImageIndex].displayed ++;
 };
 
 imageDivTag.addEventListener('click', handleClicks);
