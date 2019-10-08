@@ -8,11 +8,17 @@ var totalClicks = 0;
 var numImgDisplay = 3;
 var allProducts = [];
 var currentImagesDisplayed = [];
-var leftImgTag = document.getElementById(leftimage);
-var centerImgTag = document.getElementById(centerimage);
-var rightImgTag = document.getElementById(rightimage);
+var leftImgTag = document.getElementById('leftimage');
+var centerImgTag = document.getElementById('centerimage');
+var rightImgTag = document.getElementById('rightimage');
+var leftImgPath = '';
+var centerImgPath = '';
+var rightImgPath = '';
+var centerImageIndex = ''
 
 
+
+console.log(centerImgTag);
 
 // Constructor Function
 var ProductImage = function(name, pathToImg) {
@@ -20,27 +26,8 @@ var ProductImage = function(name, pathToImg) {
   this.pathToImg = pathToImg;
   // this.clicks = clicks;
   // this.displayed = displayed;
-
   allProducts.push(this);
 };
-
-
-
-
-// // Helper Functions
-// var pickImgToDisplay = function(){
-//   var pickImg1 = Math.floor(Math.random() * ProductImage.allProducts.length);
-//   // var newImgArr = [];
-//   // newImgArr.push(allProducts.pickImg1);
-//   // do {
-//   //   var pickImg2 = Math.floor(Math.random() * ProductImage.allProducts.length - currentImagesDisplayed.length);
-//   // }while (pickImg1 === pickImg2){
-
-//   // }
-//   renderNewImages(newImgArr);
-// }
-
-
 
 
 new ProductImage('bag', './img/bag.jpg');
@@ -64,44 +51,36 @@ new ProductImage('tauntaun', './img/tauntaun.jpg');
 new ProductImage('water-can', './img/water-can.jpg');
 console.log(allProducts);
 
-var leftImage = Math.floor(Math.random() * allProducts.length);
 
-do {
-  var centerImage = Math.floor(Math.random() * allProducts.length);
-} while (centerImage === leftImage);{
-  do {
-    var rightImage = Math.floor(Math.random() * allProducts.length);
-  } while (rightImage === leftImage || rightImage ===centerImage);
-  // render images
-  // console.log(allProducts[rightImage].name);
-  // console.log(allProducts[rightImage]['pathToImg']);
-  // console.log(allProducts[centerImage]);
-  // console.log(leftImage);
-  leftImgTag = document.getElementById(leftImage);
-  centerImgTag = document.getElementById(centerImage);
-  rightImgTag = document.getElementById(rightImage);
-  // console.log(centerImgTag);
-}
-
-
-var renderNewImages = function(leftImgTag, centerImgTag, rightImgTag){
-  console.log(leftImgTag);
-  // leftImgTag.src= allProducts[leftImage]['pathToImg'];
- 
-  // centerImgTag.src = allProducts[centerImage]['pathToImg'];
-  // rightImgTag.src = allProducts[rightImage]['pathToImg'];
+var renderNewImages = function(leftImg, centerImg, rightImg){
+  console.log('render function');
 };
-renderNewImages();
-
 
 //Event Handler
-
 var imageDivTag = document.getElementById('images');
 console.log(imageDivTag);
 
 var handleClicks = function() {
-console.log('Proof of event handler');
-}
+  
+  var leftImageIndex = Math.floor(Math.random() * allProducts.length);
 
+  do {
+    var centerImageIndex = Math.floor(Math.random() * allProducts.length);
+  } while (centerImageIndex === leftImageIndex);{
+      do {
+        var rightImageIndex = Math.floor(Math.random() * allProducts.length);
+      } while (rightImageIndex === leftImageIndex || rightImageIndex ===centerImageIndex);
+      var leftImgPath = allProducts[leftImageIndex].pathToImg; 
+      var centerImgPath = allProducts[centerImageIndex].pathToImg;
+      var rightImgPath = allProducts[rightImageIndex].pathToImg;
+      //render new images
+      leftImgTag.src=leftImgPath
+      centerImgTag.src=centerImgPath
+      rightImgTag.src=rightImgPath
+    }
+    renderNewImages();
+  }
 
 imageDivTag.addEventListener('click', handleClicks);
+
+
