@@ -108,6 +108,7 @@ var handleClicks = function() {
     genData();
     genLabels();
     displayResults();
+    barChart();
   }
   totalClicks ++;
 };
@@ -120,7 +121,7 @@ imageDivTag.addEventListener('click', handleClicks);
 var genLabels = function(){
   var labelArr = [];
   for( var i = 0; i < allProducts.length; i ++){
-    labelArr.push(allProducts[i].name);
+    labelArr. push(allProducts[i].name);
   }
   console.log(labelArr);
   return labelArr;
@@ -145,7 +146,7 @@ var barChart = function(){
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: genLabels(),
       datasets: [{
         label: '# of Votes',
         data: [12, 19, 3, 5, 2, 3],
@@ -180,4 +181,4 @@ var barChart = function(){
   });
 };
 
-barChart();
+
