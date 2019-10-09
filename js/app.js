@@ -115,3 +115,4 @@ var imageDivTag = document.getElementById('images');
 imageDivTag.addEventListener('click', handleClicks);
 
 
+
