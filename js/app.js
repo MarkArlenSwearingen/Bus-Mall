@@ -85,22 +85,23 @@ var handleClicks = function() {
     barChart();
   }
   updateLS();
-  console.log(totalClicks);
   totalClicks ++;
 };
 
 //function to update local storage
 var updateLS = function(){
   var allProductsLS = JSON.stringify(allProducts);
-  // console.log(allProductsLS);
   localStorage.setItem('allProductsLS', allProductsLS);
+  var totalClicksLS = JSON.stringify(totalClicks);
+  localStorage.setItem('totalClicksLS', totalClicksLS);
 };
 
 //function to retrieve information from local storage
 var retrieveAllProducts = function(){
   var data = localStorage.getItem('allProductsLS');
   var productData = JSON.parse(data);
-  console.log(productData);
+  var dataClicks = localStorage.getItem('totalClicksLS');
+  var totalClickData = JSON.parse(dataClicks);
 };
 
 //Generate label array for populating bar chart
