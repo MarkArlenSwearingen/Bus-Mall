@@ -38,7 +38,7 @@ var displayResults = function() {
   resultId.appendChild(ul);
   for(var i = 0; i < allProducts.length; i++){
     var li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes.  It was displayed ${allProducts[i].displayed} times`;
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes`;
     ul.appendChild(li);
   }
 };
@@ -83,8 +83,21 @@ var handleClicks = function() {
     displayResults();
     barChart();
   }
+  updateLS();
+  console.log(totalClicks);
+  console.log(allProducts);
   totalClicks ++;
 };
+
+//function to update local storage
+var updateLS = function(){
+  
+  var allProductsLS = JSON.stringify(allProducts);
+  console.log(allProductsLS);
+  localStorage.setItem('allProductsLS', allProductsLS);
+};
+
+
 
 //Generate label array for populating bar chart
 var genLabels = function(){
