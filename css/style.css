@@ -11,6 +11,12 @@ h1, h2 {
   font-size: 4em;
   background-color: grey;
 }
+h3 {
+  font-size: 2em;
+  background-color: whitesmoke;
+  box-shadow: 10px 5px 5px black;
+  margin: .1em;
+}
 
 img {
   width: 200px;
