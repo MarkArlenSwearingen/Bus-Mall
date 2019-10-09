@@ -15,6 +15,7 @@ var rightImgPath = '';
 var leftImageIndex = '';
 var centerImageIndex = '';
 var rightImageIndex = '';
+var allProductsLS =[];
 
 // Constructor Function
 var ProductImage = function(name, pathToImg) {
@@ -38,7 +39,7 @@ var displayResults = function() {
   resultId.appendChild(ul);
   for(var i = 0; i < allProducts.length; i++){
     var li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes.  It was displayed ${allProducts[i].displayed} times`;
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes`;
     ul.appendChild(li);
   }
 };
@@ -83,7 +84,24 @@ var handleClicks = function() {
     displayResults();
     barChart();
   }
+  updateLS();
   totalClicks ++;
+};
+
+//function to update local storage
+var updateLS = function(){
+  var allProductsLS = JSON.stringify(allProducts);
+  localStorage.setItem('allProductsLS', allProductsLS);
+  var totalClicksLS = JSON.stringify(totalClicks);
+  localStorage.setItem('totalClicksLS', totalClicksLS);
+};
+
+//function to retrieve information from local storage
+var retrieveAllProducts = function(){
+  var data = localStorage.getItem('allProductsLS');
+  var productData = JSON.parse(data);
+  var dataClicks = localStorage.getItem('totalClicksLS');
+  var totalClickData = JSON.parse(dataClicks);
 };
 
 //Generate label array for populating bar chart
@@ -228,6 +246,15 @@ var barChart = function(){
   });
 };
 
+//start survey function
+function startSurvey() {
+  imageDivTag.addEventListener('click', handleClicks);
+}
+
+//Executing Code
+
+retrieveAllProducts();
+
 new ProductImage('bag', './img/bag.jpg');
 new ProductImage('boots', './img/boots.jpg');
 new ProductImage('chair', './img/chair.jpg');
@@ -250,4 +277,5 @@ new ProductImage('water-can', './img/water-can.jpg');
 
 var imageDivTag = document.getElementById('images');
 
-imageDivTag.addEventListener('click', handleClicks);
+//start survey
+startSurvey();
