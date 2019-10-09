@@ -105,6 +105,8 @@ var handleClicks = function() {
   allProducts[rightImageIndex].displayed ++;
   if (totalClicks === numOfSelections){
     imageDivTag.removeEventListener('click', handleClicks);
+    genData();
+    genLabels();
     displayResults();
   }
   totalClicks ++;
@@ -121,11 +123,22 @@ var genLabels = function(){
     labelArr.push(allProducts[i].name);
   }
   console.log(labelArr);
+  return labelArr;
 };
 
-genLabels();
+// genLabels();
 
+//Create data array for number of votes by product
+var genData = function(){
+  var votesArr = [];
+  for( var i = 0; i < allProducts.length; i++){
+    votesArr.push(allProducts[i].clicks);
+  }
+  console.log(votesArr);
+  return votesArr;
+};
 
+// genData();
 
 var barChart = function(){
   var ctx = document.getElementById('resultchart');
