@@ -59,7 +59,7 @@ var displayResults = function() {
   resultId.appendChild(ul);
   for(var i = 0; i < allProducts.length; i++){
     var li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes`;
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes.  It was displayed ${allProducts[i].displayed} times`;
     ul.appendChild(li);
   }
 };
