@@ -24,3 +24,7 @@ ul {
 #images {
   display: inline;
 }
+
+li, #images {
+  margin-left: 80px;
+}

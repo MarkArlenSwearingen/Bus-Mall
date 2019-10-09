@@ -27,24 +27,24 @@ var ProductImage = function(name, pathToImg) {
 
 
 new ProductImage('bag', './img/bag.jpg');
-new ProductImage('boots', './img/boots.jpg');
-new ProductImage('chair', './img/chair.jpg');
-new ProductImage('scissors', './img/scissors.jpg');
-new ProductImage('unicorn', './img/unicorn.jpg');
-new ProductImage('wine-glass', './img/wine-glass.jpg');
 new ProductImage('banana', './img/banana.jpg');
-new ProductImage('breakfast', './img/breakfast.jpg');
-new ProductImage('cthulhu', './img/cthulhu.jpg');
-new ProductImage('pen', './img/pen.jpg');
-new ProductImage('shark', './img/shark.jpg');
-new ProductImage('usb', './img/usb.gif');
 new ProductImage('bathroom', './img/bathroom.jpg');
+new ProductImage('boots', './img/boots.jpg');
+new ProductImage('breakfast', './img/breakfast.jpg');
 new ProductImage('bubblegum', './img/bubblegum.jpg');
+new ProductImage('chair', './img/chair.jpg');
+new ProductImage('cthulhu', './img/cthulhu.jpg');
 new ProductImage('dog-duck', './img/dog-duck.jpg');
-// new ProductImage('bubblegum', './img/bubblegum.jpg');
+new ProductImage('dragon', './img/dragon.jpg');
+new ProductImage('pen', './img/pen.jpg');
 new ProductImage('pet-sweep', './img/pet-sweep.jpg');
+new ProductImage('scissors', './img/scissors.jpg');
+new ProductImage('shark', './img/shark.jpg');
 new ProductImage('tauntaun', './img/tauntaun.jpg');
+new ProductImage('unicorn', './img/unicorn.jpg');
+new ProductImage('usb', './img/usb.gif');
 new ProductImage('water-can', './img/water-can.jpg');
+new ProductImage('wine-glass', './img/wine-class.jpg');
 
 //Render function
 var renderNewImages = function(leftImageIndex, centerImageIndex, rightImageIndex){
@@ -63,8 +63,6 @@ var displayResults = function() {
     ul.appendChild(li);
   }
 };
-
-
 
 //Randomizer
 var randomizer = function(){
@@ -89,17 +87,13 @@ var handleClicks = function() {
     var imageClicked = event.target;
     var id = imageClicked.id;
     if( id === 'leftimage'){
-      // console.log('left image ' + leftImageIndex);
       allProducts[leftImageIndex].clicks ++;
     } else if( id === 'centerimage'){
-      // console.log('center image ' + centerImageIndex);
       allProducts[centerImageIndex].clicks ++;
     } else if( id === 'rightimage'){
-      // console.log('right image ' + rightImageIndex);
       allProducts[rightImageIndex].clicks ++;
     }
   }
-  console.log(totalClicks);
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
