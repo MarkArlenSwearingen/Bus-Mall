@@ -114,6 +114,19 @@ var imageDivTag = document.getElementById('images');
 
 imageDivTag.addEventListener('click', handleClicks);
 
+//Generate label array for populating bar chart
+var genLabels = function(){
+  var labelArr = [];
+  for( var i = 0; i < allProducts.length; i ++){
+    labelArr.push(allProducts[i].name);
+  }
+  console.log(labelArr);
+};
+
+genLabels();
+
+
+
 var barChart = function(){
   var ctx = document.getElementById('resultchart');
   var myChart = new Chart(ctx, {
