@@ -15,6 +15,7 @@ var rightImgPath = '';
 var leftImageIndex = '';
 var centerImageIndex = '';
 var rightImageIndex = '';
+var allProductsLS =[];
 
 // Constructor Function
 var ProductImage = function(name, pathToImg) {
@@ -85,19 +86,22 @@ var handleClicks = function() {
   }
   updateLS();
   console.log(totalClicks);
-  console.log(allProducts);
   totalClicks ++;
 };
 
 //function to update local storage
 var updateLS = function(){
-  
   var allProductsLS = JSON.stringify(allProducts);
-  console.log(allProductsLS);
+  // console.log(allProductsLS);
   localStorage.setItem('allProductsLS', allProductsLS);
 };
 
-
+//function to retrieve information from local storage
+var retrieveAllProducts = function(){
+  var data = localStorage.getItem('allProductsLS');
+  var productData = JSON.parse(data);
+  console.log(productData);
+};
 
 //Generate label array for populating bar chart
 var genLabels = function(){
@@ -241,6 +245,15 @@ var barChart = function(){
   });
 };
 
+//start survey function
+function startSurvey() {
+  imageDivTag.addEventListener('click', handleClicks);
+}
+
+//Executing Code
+
+retrieveAllProducts();
+
 new ProductImage('bag', './img/bag.jpg');
 new ProductImage('boots', './img/boots.jpg');
 new ProductImage('chair', './img/chair.jpg');
@@ -263,4 +276,5 @@ new ProductImage('water-can', './img/water-can.jpg');
 
 var imageDivTag = document.getElementById('images');
 
-imageDivTag.addEventListener('click', handleClicks);
+//start survey
+startSurvey();
