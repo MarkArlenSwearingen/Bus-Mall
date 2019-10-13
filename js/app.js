@@ -3,14 +3,10 @@
 // Global Variables
 var totalClicks = 0;
 var numOfSelections = 5;
-var numImgDisplay = 3;
 var allProducts = [];
 var leftImgTag = document.getElementById('leftimage');
 var centerImgTag = document.getElementById('centerimage');
 var rightImgTag = document.getElementById('rightimage');
-// var leftImgPath = '';
-// var centerImgPath = '';
-// var rightImgPath = '';
 var leftImageIndex = '';
 var centerImageIndex = '';
 var rightImageIndex = '';
@@ -22,6 +18,7 @@ var ProductImage = function(name, pathToImg) {
   this.pathToImg = pathToImg;
   this.clicks = 0;
   this.displayed = 0;
+  this.prevShown = false;
   allProducts.push(this);
 };
 
@@ -44,26 +41,39 @@ var displayResults = function() {
   }
 };
 
-//Randomizer
-var randomizer = function(){
+//Select non-repeating images
+var pickNewImages = function(){
   leftImageIndex = Math.floor(Math.random() * allProducts.length);
-  do {
-    centerImageIndex = Math.floor(Math.random() * allProducts.length);
-  } while (centerImageIndex === leftImageIndex);{
-    do {
-      rightImageIndex = Math.floor(Math.random() * allProducts.length);
-    } while (rightImageIndex === leftImageIndex || rightImageIndex ===centerImageIndex);
-    var leftImgPath = allProducts[leftImageIndex].pathToImg;
-    var centerImgPath = allProducts[centerImageIndex].pathToImg;
-    var rightImgPath = allProducts[rightImageIndex].pathToImg;
+  centerImageIndex = Math.floor(Math.random() * allProducts.length);
+  rightImageIndex = Math.floor(Math.random() * allProducts.length);
+
+  var randomIndexArr =[];
+  while (allProducts[leftImageIndex].prevShown === true || randomIndexArr.includes(leftImageIndex)){
+    leftImageIndex = Math.floor(Math.random() * allProducts.length);
   }
+  randomIndexArr.push(leftImageIndex);
+  while (allProducts[centerImageIndex].prevShown === true || randomIndexArr.includes(centerImageIndex)){
+    centerImageIndex = Math.floor(Math.random() * allProducts.length);
+  }
+  randomIndexArr.push(centerImageIndex);
+  while (allProducts[rightImageIndex].prevShown === true || randomIndexArr.includes(rightImageIndex)){
+    rightImageIndex = Math.floor(Math.random() * allProducts.length);
+  }
+  randomIndexArr.push(rightImageIndex);
+  for (var i = 1; i < allProducts.length; i++){
+    allProducts[i].prevShown = false;
+  }
+  allProducts[leftImageIndex].prevShown = true;
+  allProducts[centerImageIndex].prevShown = true;
+  allProducts[rightImageIndex].prevShown = true;
+  randomIndexArr = [];
   renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
 };
 
 //Event Handler
 var handleClicks = function() {
   retrieveAllProducts();
-  randomizer();
+  pickNewImages();
   if (totalClicks < numOfSelections){
     var imageClicked = event.target;
     var id = imageClicked.id;
@@ -83,7 +93,6 @@ var handleClicks = function() {
     genLabels();
     displayResults();
     barChart();
-    //Clear local storage
     clearLS();
     imageDivTag.removeEventListener('click', handleClicks);
   }
