@@ -140,7 +140,7 @@ var genLabels = function(){
   return labelArr;
 };
 
-
+//Generate table data product votes
 var genData = function(){
   var votesArr = [];
   for( var i = 0; i < allProducts.length; i++){
@@ -149,6 +149,7 @@ var genData = function(){
   return votesArr;
 };
 
+//Generate table data product displayed
 var displayData = function(){
   var displayArr = [];
   for( var i = 0; i < allProducts.length; i++){
@@ -157,6 +158,7 @@ var displayData = function(){
   return displayArr;
 };
 
+//Generate chart using ChartJS third party library
 var barChart = function(){
   var ctx = document.getElementById('resultchart');
   var myChart = new Chart(ctx, {
