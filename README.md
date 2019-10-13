@@ -1,5 +1,5 @@
 # Bus-Mall
-Busmall - A mall on the buss
+The Bus Mall application is survey application to gather marketing information about what products bus riders would be likely to purchase.  It tracks sets of product images displayed in a random order along with the product selected.  After the survey is complete, the results are displayed including a graph of the number of times a product was selected and displayed.  
 
 Week3 - Weekly lab
 
