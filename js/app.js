@@ -2,16 +2,11 @@
 
 // Global Variables
 var totalClicks = 0;
-var numOfSelections = 25;
-var numImgDisplay = 3;
+var numOfSelections = 5;
 var allProducts = [];
-var currentImagesDisplayed = [];
 var leftImgTag = document.getElementById('leftimage');
 var centerImgTag = document.getElementById('centerimage');
 var rightImgTag = document.getElementById('rightimage');
-var leftImgPath = '';
-var centerImgPath = '';
-var rightImgPath = '';
 var leftImageIndex = '';
 var centerImageIndex = '';
 var rightImageIndex = '';
@@ -23,6 +18,7 @@ var ProductImage = function(name, pathToImg) {
   this.pathToImg = pathToImg;
   this.clicks = 0;
   this.displayed = 0;
+  this.prevShown = false;
   allProducts.push(this);
 };
 
@@ -33,6 +29,7 @@ var renderNewImages = function(leftImageIndex, centerImageIndex, rightImageIndex
   rightImgTag.src = allProducts[rightImageIndex].pathToImg;
 };
 
+//Display Results in text form on DOM
 var displayResults = function() {
   var resultId = document.getElementById('results');
   var ul = document.createElement('ul');
@@ -44,25 +41,39 @@ var displayResults = function() {
   }
 };
 
-//Randomizer
-var randomizer = function(){
+//Select non-repeating images
+var pickNewImages = function(){
   leftImageIndex = Math.floor(Math.random() * allProducts.length);
-  do {
-    centerImageIndex = Math.floor(Math.random() * allProducts.length);
-  } while (centerImageIndex === leftImageIndex);{
-    do {
-      rightImageIndex = Math.floor(Math.random() * allProducts.length);
-    } while (rightImageIndex === leftImageIndex || rightImageIndex ===centerImageIndex);
-    leftImgPath = allProducts[leftImageIndex].pathToImg;
-    centerImgPath = allProducts[centerImageIndex].pathToImg;
-    rightImgPath = allProducts[rightImageIndex].pathToImg;
+  centerImageIndex = Math.floor(Math.random() * allProducts.length);
+  rightImageIndex = Math.floor(Math.random() * allProducts.length);
+
+  var randomIndexArr =[];
+  while (allProducts[leftImageIndex].prevShown === true || randomIndexArr.includes(leftImageIndex)){
+    leftImageIndex = Math.floor(Math.random() * allProducts.length);
   }
+  randomIndexArr.push(leftImageIndex);
+  while (allProducts[centerImageIndex].prevShown === true || randomIndexArr.includes(centerImageIndex)){
+    centerImageIndex = Math.floor(Math.random() * allProducts.length);
+  }
+  randomIndexArr.push(centerImageIndex);
+  while (allProducts[rightImageIndex].prevShown === true || randomIndexArr.includes(rightImageIndex)){
+    rightImageIndex = Math.floor(Math.random() * allProducts.length);
+  }
+  randomIndexArr.push(rightImageIndex);
+  for (var i = 1; i < allProducts.length; i++){
+    allProducts[i].prevShown = false;
+  }
+  allProducts[leftImageIndex].prevShown = true;
+  allProducts[centerImageIndex].prevShown = true;
+  allProducts[rightImageIndex].prevShown = true;
+  randomIndexArr = [];
   renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
 };
 
 //Event Handler
 var handleClicks = function() {
-  randomizer();
+  retrieveAllProducts();
+  pickNewImages();
   if (totalClicks < numOfSelections){
     var imageClicked = event.target;
     var id = imageClicked.id;
@@ -77,15 +88,27 @@ var handleClicks = function() {
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
-  if (totalClicks === numOfSelections){
-    imageDivTag.removeEventListener('click', handleClicks);
+  if (totalClicks > numOfSelections){
     genData();
     genLabels();
     displayResults();
     barChart();
+    clearLS();
+    imageDivTag.removeEventListener('click', handleClicks);
   }
-  updateLS();
   totalClicks ++;
+  updateLS();
+};
+
+//function to clear local storage
+var clearLS = function(){
+  if (totalClicks >= numOfSelections){
+    totalClicks = 0;
+    for ( var j = 0; j < allProducts.length; j++){
+      allProducts[j].clicks = 0;
+      allProducts[j].displayed = 0;
+    }
+  }
 };
 
 //function to update local storage
@@ -96,12 +119,16 @@ var updateLS = function(){
   localStorage.setItem('totalClicksLS', totalClicksLS);
 };
 
-//function to retrieve information from local storage
+//function to retrieve all products from local storage
 var retrieveAllProducts = function(){
-  var data = localStorage.getItem('allProductsLS');
-  var productData = JSON.parse(data);
-  var dataClicks = localStorage.getItem('totalClicksLS');
-  var totalClickData = JSON.parse(dataClicks);
+  if(allProductsLS !== 0) {
+    var data = localStorage.getItem('allProductsLS');
+    allProducts = JSON.parse(data);
+    var dataClicks = localStorage.getItem('totalClicksLS');
+    if (JSON.parse(dataClicks) !== 0){
+      totalClicks = JSON.parse(dataClicks);
+    }
+  }
 };
 
 //Generate label array for populating bar chart
@@ -113,7 +140,7 @@ var genLabels = function(){
   return labelArr;
 };
 
-//Create data array for number of votes by product
+
 var genData = function(){
   var votesArr = [];
   for( var i = 0; i < allProducts.length; i++){
@@ -248,12 +275,11 @@ var barChart = function(){
 
 //start survey function
 function startSurvey() {
+  retrieveAllProducts();
   imageDivTag.addEventListener('click', handleClicks);
 }
 
 //Executing Code
-
-retrieveAllProducts();
 
 new ProductImage('bag', './img/bag.jpg');
 new ProductImage('boots', './img/boots.jpg');
