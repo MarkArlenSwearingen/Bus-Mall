@@ -8,9 +8,9 @@ var allProducts = [];
 var leftImgTag = document.getElementById('leftimage');
 var centerImgTag = document.getElementById('centerimage');
 var rightImgTag = document.getElementById('rightimage');
-var leftImgPath = '';
-var centerImgPath = '';
-var rightImgPath = '';
+// var leftImgPath = '';
+// var centerImgPath = '';
+// var rightImgPath = '';
 var leftImageIndex = '';
 var centerImageIndex = '';
 var rightImageIndex = '';
@@ -53,9 +53,9 @@ var randomizer = function(){
     do {
       rightImageIndex = Math.floor(Math.random() * allProducts.length);
     } while (rightImageIndex === leftImageIndex || rightImageIndex ===centerImageIndex);
-    leftImgPath = allProducts[leftImageIndex].pathToImg;
-    centerImgPath = allProducts[centerImageIndex].pathToImg;
-    rightImgPath = allProducts[rightImageIndex].pathToImg;
+    var leftImgPath = allProducts[leftImageIndex].pathToImg;
+    var centerImgPath = allProducts[centerImageIndex].pathToImg;
+    var rightImgPath = allProducts[rightImageIndex].pathToImg;
   }
   renderNewImages(leftImageIndex, centerImageIndex, rightImageIndex);
 };
@@ -78,7 +78,6 @@ var handleClicks = function() {
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
-  
   if (totalClicks > numOfSelections){
     genData();
     genLabels();
