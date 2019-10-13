@@ -2,10 +2,9 @@
 
 // Global Variables
 var totalClicks = 0;
-var numOfSelections = 25;
+var numOfSelections = 5;
 var numImgDisplay = 3;
 var allProducts = [];
-var currentImagesDisplayed = [];
 var leftImgTag = document.getElementById('leftimage');
 var centerImgTag = document.getElementById('centerimage');
 var rightImgTag = document.getElementById('rightimage');
@@ -33,6 +32,7 @@ var renderNewImages = function(leftImageIndex, centerImageIndex, rightImageIndex
   rightImgTag.src = allProducts[rightImageIndex].pathToImg;
 };
 
+//Display Results in text form on DOM
 var displayResults = function() {
   var resultId = document.getElementById('results');
   var ul = document.createElement('ul');
@@ -62,6 +62,7 @@ var randomizer = function(){
 
 //Event Handler
 var handleClicks = function() {
+  retrieveAllProducts();
   randomizer();
   if (totalClicks < numOfSelections){
     var imageClicked = event.target;
@@ -77,15 +78,29 @@ var handleClicks = function() {
   allProducts[leftImageIndex].displayed ++;
   allProducts[centerImageIndex].displayed ++;
   allProducts[rightImageIndex].displayed ++;
-  if (totalClicks === numOfSelections){
-    imageDivTag.removeEventListener('click', handleClicks);
+  
+  if (totalClicks > numOfSelections){
     genData();
     genLabels();
     displayResults();
     barChart();
+    //Clear local storage
+    clearLS();
+    imageDivTag.removeEventListener('click', handleClicks);
   }
-  updateLS();
   totalClicks ++;
+  updateLS();
+};
+
+//function to clear local storage
+var clearLS = function(){
+  if (totalClicks >= numOfSelections){
+    totalClicks = 0;
+    for ( var j = 0; j < allProducts.length; j++){
+      allProducts[j].clicks = 0;
+      allProducts[j].displayed = 0;
+    }
+  }
 };
 
 //function to update local storage
@@ -96,12 +111,16 @@ var updateLS = function(){
   localStorage.setItem('totalClicksLS', totalClicksLS);
 };
 
-//function to retrieve information from local storage
+//function to retrieve all products from local storage
 var retrieveAllProducts = function(){
-  var data = localStorage.getItem('allProductsLS');
-  var productData = JSON.parse(data);
-  var dataClicks = localStorage.getItem('totalClicksLS');
-  var totalClickData = JSON.parse(dataClicks);
+  if(allProductsLS !== 0) {
+    var data = localStorage.getItem('allProductsLS');
+    allProducts = JSON.parse(data);
+    var dataClicks = localStorage.getItem('totalClicksLS');
+    if (JSON.parse(dataClicks) !== 0){
+      totalClicks = JSON.parse(dataClicks);
+    }
+  }
 };
 
 //Generate label array for populating bar chart
@@ -113,7 +132,7 @@ var genLabels = function(){
   return labelArr;
 };
 
-//Create data array for number of votes by product
+
 var genData = function(){
   var votesArr = [];
   for( var i = 0; i < allProducts.length; i++){
@@ -248,12 +267,11 @@ var barChart = function(){
 
 //start survey function
 function startSurvey() {
+  retrieveAllProducts();
   imageDivTag.addEventListener('click', handleClicks);
 }
 
 //Executing Code
-
-retrieveAllProducts();
 
 new ProductImage('bag', './img/bag.jpg');
 new ProductImage('boots', './img/boots.jpg');
