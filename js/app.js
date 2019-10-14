@@ -275,6 +275,20 @@ var barChart = function(){
   });
 };
 
+//start survey function
+function startSurvey() {
+  var data = localStorage.getItem('allProductsLS');
+  if (data === null){
+    createProducts();
+    var allProductsLS = JSON.stringify(allProducts);
+    localStorage.setItem('allProductsLS', allProductsLS);
+    var totalClicksLS = JSON.stringify(totalClicks);
+    localStorage.setItem('totalClicksLS', totalClicksLS);
+  } else{retrieveAllProducts();
+  }
+  imageDivTag.addEventListener('click', handleClicks);
+}
+
 var productImageArray = [
   ['bag', './img/bag.jpg']
   ,['boots', './img/boots.jpg']
@@ -303,44 +317,11 @@ function createProducts(name, pathToImg){
   }
 }
 
-
-//Executing Code
-
-// new ProductImage('bag', './img/bag.jpg');
-// new ProductImage('boots', './img/boots.jpg');
-// new ProductImage('chair', './img/chair.jpg');
-// new ProductImage('scissors', './img/scissors.jpg');
-// new ProductImage('unicorn', './img/unicorn.jpg');
-// new ProductImage('wine-glass', './img/wine-glass.jpg');
-// new ProductImage('banana', './img/banana.jpg');
-// new ProductImage('breakfast', './img/breakfast.jpg');
-// new ProductImage('cthulhu', './img/cthulhu.jpg');
-// new ProductImage('pen', './img/pen.jpg');
-// new ProductImage('shark', './img/shark.jpg');
-// new ProductImage('usb', './img/usb.gif');
-// new ProductImage('bathroom', './img/bathroom.jpg');
-// new ProductImage('bubblegum', './img/bubblegum.jpg');
-// new ProductImage('dog-duck', './img/dog-duck.jpg');
-// new ProductImage('sweep', './img/sweep.png');
-// new ProductImage('pet-sweep', './img/pet-sweep.jpg');
-// new ProductImage('tauntaun', './img/tauntaun.jpg');
-// new ProductImage('water-can', './img/water-can.jpg');
+//Executing code
 
 var imageDivTag = document.getElementById('images');
 
 //start survey
 startSurvey();
 
-//start survey function
-function startSurvey() {
-  var data = localStorage.getItem('allProductsLS');
-  if (data === null){
-    createProducts();
-    var allProductsLS = JSON.stringify(allProducts);
-    localStorage.setItem('allProductsLS', allProductsLS);
-    var totalClicksLS = JSON.stringify(totalClicks);
-    localStorage.setItem('totalClicksLS', totalClicksLS);
-  } else{retrieveAllProducts();
-  }
-  imageDivTag.addEventListener('click', handleClicks);
-}
+
