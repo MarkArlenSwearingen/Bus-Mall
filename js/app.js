@@ -275,29 +275,56 @@ var barChart = function(){
   });
 };
 
+var productImageArray = [
+  ['bag', './img/bag.jpg']
+  ,['boots', './img/boots.jpg']
+  ,['chair', './img/chair.jpg']
+  ,['scissors', './img/scissors.jpg']
+  ,['unicorn', './img/unicorn.jpg']
+  ,['wine-glass', './img/wine-glass.jpg']
+  ,['banana', './img/banana.jpg']
+  ,['breakfast', './img/breakfast.jpg']
+  ,['cthulhu', './img/cthulhu.jpg']
+  ,['pen', './img/pen.jpg']
+  ,['shark', './img/shark.jpg']
+  ,['usb', './img/usb.gif']
+  ,['bathroom', './img/bathroom.jpg']
+  ,['bubblegum', './img/bubblegum.jpg']
+  ,['dog-duck', './img/dog-duck.jpg']
+  ,['sweep', './img/sweep.png']
+  ,['pet-sweep', './img/pet-sweep.jpg']
+  ,['tauntaun', './img/tauntaun.jpg']
+  ,['water-can', './img/water-can.jpg']
+];
+
+function createProducts(name, pathToImg){
+  for (var i = 0; i < productImageArray.length; i++){
+    new ProductImage(productImageArray[i][0],productImageArray[i][1]);
+  }
+}
 
 
 //Executing Code
 
-new ProductImage('bag', './img/bag.jpg');
-new ProductImage('boots', './img/boots.jpg');
-new ProductImage('chair', './img/chair.jpg');
-new ProductImage('scissors', './img/scissors.jpg');
-new ProductImage('unicorn', './img/unicorn.jpg');
-new ProductImage('wine-glass', './img/wine-glass.jpg');
-new ProductImage('banana', './img/banana.jpg');
-new ProductImage('breakfast', './img/breakfast.jpg');
-new ProductImage('cthulhu', './img/cthulhu.jpg');
-new ProductImage('pen', './img/pen.jpg');
-new ProductImage('shark', './img/shark.jpg');
-new ProductImage('usb', './img/usb.gif');
-new ProductImage('bathroom', './img/bathroom.jpg');
-new ProductImage('bubblegum', './img/bubblegum.jpg');
-new ProductImage('dog-duck', './img/dog-duck.jpg');
-new ProductImage('sweep', './img/sweep.png');
-new ProductImage('pet-sweep', './img/pet-sweep.jpg');
-new ProductImage('tauntaun', './img/tauntaun.jpg');
-new ProductImage('water-can', './img/water-can.jpg');
+// new ProductImage('bag', './img/bag.jpg');
+// new ProductImage('boots', './img/boots.jpg');
+// new ProductImage('chair', './img/chair.jpg');
+// new ProductImage('scissors', './img/scissors.jpg');
+// new ProductImage('unicorn', './img/unicorn.jpg');
+// new ProductImage('wine-glass', './img/wine-glass.jpg');
+// new ProductImage('banana', './img/banana.jpg');
+// new ProductImage('breakfast', './img/breakfast.jpg');
+// new ProductImage('cthulhu', './img/cthulhu.jpg');
+// new ProductImage('pen', './img/pen.jpg');
+// new ProductImage('shark', './img/shark.jpg');
+// new ProductImage('usb', './img/usb.gif');
+// new ProductImage('bathroom', './img/bathroom.jpg');
+// new ProductImage('bubblegum', './img/bubblegum.jpg');
+// new ProductImage('dog-duck', './img/dog-duck.jpg');
+// new ProductImage('sweep', './img/sweep.png');
+// new ProductImage('pet-sweep', './img/pet-sweep.jpg');
+// new ProductImage('tauntaun', './img/tauntaun.jpg');
+// new ProductImage('water-can', './img/water-can.jpg');
 
 var imageDivTag = document.getElementById('images');
 
@@ -306,6 +333,14 @@ startSurvey();
 
 //start survey function
 function startSurvey() {
-  retrieveAllProducts();
+  var data = localStorage.getItem('allProductsLS');
+  if (data === null){
+    createProducts();
+    var allProductsLS = JSON.stringify(allProducts);
+    localStorage.setItem('allProductsLS', allProductsLS);
+    var totalClicksLS = JSON.stringify(totalClicks);
+    localStorage.setItem('totalClicksLS', totalClicksLS);
+  } else{retrieveAllProducts();
+  }
   imageDivTag.addEventListener('click', handleClicks);
 }
