@@ -275,11 +275,7 @@ var barChart = function(){
   });
 };
 
-//start survey function
-function startSurvey() {
-  retrieveAllProducts();
-  imageDivTag.addEventListener('click', handleClicks);
-}
+
 
 //Executing Code
 
@@ -307,3 +303,9 @@ var imageDivTag = document.getElementById('images');
 
 //start survey
 startSurvey();
+
+//start survey function
+function startSurvey() {
+  retrieveAllProducts();
+  imageDivTag.addEventListener('click', handleClicks);
+}
